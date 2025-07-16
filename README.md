@@ -1,89 +1,121 @@
-# CP Visualizer
+# AlgoViz
 
-A tool to automatically generate C++ solutions and Manim visualizations for LeetCode problems using AI.
+🧩 Generate optimal C++ solutions and beautiful Manim visualizations for LeetCode problems — right from your browser.
 
-## Features
-- Fetches LeetCode problem statements via GraphQL.
-- Uses OpenRouter AI to generate:
-  - Efficient C++ solutions
-  - Manim (Python) scripts that visually explain the algorithm
-- Saves outputs to files and renders the Manim animation.
+A Chrome Extension + Python Backend that lets you click on a LeetCode problem page, run the pipeline, and save a rendered .mp4 video and code files into your local folder.
 
-## Prerequisites
-- Python 3.8+
-- [Manim](https://docs.manim.community/en/stable/)
-- An [OpenRouter](https://openrouter.ai/) API key (for AI code generation)
-- [requests](https://pypi.org/project/requests/) Python package
-- [BeautifulSoup4](https://pypi.org/project/beautifulsoup4/) (if using the older script)
+## ✨ Features
 
-## Installation
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/cp-visualizer.git
-   cd cp-visualizer
-   ```
-2. **Install Python dependencies:**
-   ```bash
-   pip install requests beautifulsoup4
-   # For Manim (if not already installed):
-   pip install manim
-   ```
-3. **Install Manim (if not already):**
-   See [Manim installation guide](https://docs.manim.community/en/stable/installation.html) for your OS.
+🔷 One-click integration with LeetCode.
 
-4. **Set your OpenRouter API key:**
-   - Get your API key from [OpenRouter](https://openrouter.ai/).
-   - Set it as an environment variable:
-     - **Linux/macOS:**
-       ```bash
-       export OPENROUTER_API_KEY=your_api_key_here
-       ```
-     - **Windows (CMD):**
-       ```cmd
-       set OPENROUTER_API_KEY=your_api_key_here
-       ```
-     - **Windows (PowerShell):**
-       ```powershell
-       $env:OPENROUTER_API_KEY="your_api_key_here"
-       ```
+🔷 Generates:
 
-## Usage
-Run the script with a LeetCode problem URL:
+✅ Optimal C++ solution
 
-```bash
-python generate_solution_and_visual.py https://leetcode.com/problems/two-sum/
+✅ Clean Manim animation video
+
+🔷 Checks correctness against top discussion posts.
+
+🔷 Saves all files in your local folder automatically.
+
+## 📂 Project Structure
+
+```
+leetcode-visualizer/
+├── backend/
+│   ├── server.py                  # Flask server
+│   └── leetcode_visualizer.py    # Full pipeline
+├── extension/
+│   ├── manifest.json              # Chrome extension manifest
+│   ├── popup.html                 # Extension UI
+│   ├── popup.js                   # Extension logic
+│   └── icon.png                   # Extension icon
+├── README.md
 ```
 
-### What happens:
-- Fetches the problem statement from LeetCode.
-- Uses OpenRouter AI to generate:
-  - A C++ solution (saved as `<slug>_solution.cpp`)
-  - A Manim visualization script (saved as `<slug>_visualization.py`)
-- Renders the Manim animation (opens a preview window).
+## 🚀 Installation & Setup
 
-### Example
+### 1️⃣ Clone the repository
 ```bash
-python generate_solution_and_visual.py https://leetcode.com/problems/two-sum/
+git clone https://github.com/<your-username>/algoviz.git
+cd algoviz
 ```
 
-## Output Files
-- `<slug>_solution_and_visualization.txt`: Raw AI output with both code sections.
-- `<slug>_solution.cpp`: C++ solution code.
-- `<slug>_visualization.py`: Manim script for visualization.
+### 2️⃣ Install backend dependencies
+- ✅ Install Python ≥ 3.8
+- ✅ Install required Python libraries:
 
-## Troubleshooting
-- **API Key errors:**
-  - Ensure `OPENROUTER_API_KEY` is set and valid.
-- **Manim not found:**
-  - Install Manim and ensure it's in your PATH.
-- **LeetCode fetch errors:**
-  - Check your internet connection and the problem URL format.
-- **AI generation errors:**
-  - The script retries up to 3 times. If it still fails, check your API key and OpenRouter status.
+```bash
+pip install flask requests beautifulsoup4
+```
+- ✅ Install Manim:
+  - Follow the [Manim installation guide](https://docs.manim.community/en/stable/installation.html)
 
-## Notes
-- The Manim script assumes a class name of `SolutionVisualization`. If the generated script uses a different class name, update the script or the `render_manim` function accordingly.
-- This tool is for educational and demonstration purposes.
+### 3️⃣ Get OpenRouter API Key
+- Sign up at [OpenRouter](https://openrouter.ai/).
+- Copy your API key.
+- Set it as an environment variable:
 
-## License
-MIT License 
+```bash
+export OPENROUTER_API_KEY=your_api_key_here
+```
+Or add it to your shell profile (`.bashrc`, `.zshrc`, etc.)
+
+### 4️⃣ Load the Chrome Extension
+- Open Chrome and go to: `chrome://extensions/`
+- Enable Developer Mode (toggle at the top-right).
+- Click **Load unpacked**.
+- Select the `extension/` folder.
+- You should now see the extension icon in your browser toolbar. 🎉
+
+## 🖥️ Usage
+
+### 🔷 Start the backend server
+```bash
+cd backend
+python server.py
+```
+The server runs at: [http://localhost:5000/](http://localhost:5000/)
+
+### 🔷 Open a LeetCode problem
+For example:
+https://leetcode.com/problems/two-sum/
+
+Click the extension icon → Click **Generate Visualization**.
+
+✅ Done!
+
+### 🔷 Output files
+After the pipeline runs, the following files are saved in your backend folder:
+
+| File                              | Description                  |
+|-----------------------------------|------------------------------|
+| slug_solution_and_visualization.txt | Raw output from LLM         |
+| slug_solution.cpp                 | Optimal C++ solution         |
+| slug_visualization.py             | Manim animation script       |
+| media/videos/                     | Rendered .mp4 video (Manim’s default output) |
+
+🎬 You can play the video or upload it anywhere!
+
+## 📝 Notes
+- ⚠️ The backend server must be running when you click the extension.
+- ⚠️ Make sure your `OPENROUTER_API_KEY` is set.
+- ⚠️ Rendering a video can take up to ~30 seconds, depending on the problem.
+
+## 🧹 Optional: High-Quality Videos
+By default, videos are rendered in low quality (`-pql` for faster preview).
+You can change `render_manim()` in `leetcode_visualizer.py` to use `-pqh` for high quality.
+
+## 📦 Roadmap
+- ✅ Basic Chrome + Backend pipeline
+- ⬜ Real-time progress updates in the popup
+- ⬜ Support more programming languages
+- ⬜ Direct cloud upload of videos
+- ⬜ Installer & packaged releases
+
+## 🤝 Contributing
+Contributions are welcome!
+Please open an issue or a pull request if you have suggestions or find bugs.
+
+
+📌 Happy Coding & Visualizing! 🚀✨ 

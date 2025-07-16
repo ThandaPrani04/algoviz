@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "AlgoViz",
+    "version": "1.0",
+    "description": "Generates and saves a Manim visualization for the current LeetCode problem.",
+    "permissions": ["activeTab", "scripting"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
+  

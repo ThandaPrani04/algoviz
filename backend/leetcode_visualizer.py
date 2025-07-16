@@ -85,20 +85,45 @@ def generate_code(problem_text, lang):
 
     prompt = f"""
 You are a competitive programmer and teacher.
-Write an efficient solution in {lang} for the following problem.
+Write an optimal and efficient solution in {lang} for the following problem.
+
 Output only two sections:
-- First section starts with this exact line: --- C++ Solution ---
-- Then the full C++ code (no explanation, no comments, just code)
-- Then this exact line: --- Manim Visualization ---
-- Then the full Manim (Python) code (no explanation, no comments, just code)
+
+First section starts with this exact line: --- C++ Solution ---
+
+Then the full C++ code (no explanation, no comments, just code)
+
+Then this exact line: --- Manim Visualization ---
+
+Then the full Manim (Python) code (no explanation, no comments, just code)
+
+ For the C++ solution:
+
+Always aim for optimal time complexity. Use the most efficient algorithm applicable (e.g., dynamic programming, greedy, divide & conquer, binary search, etc.).
+
+If multiple algorithms are possible, always choose the one with the lowest asymptotic complexity.
+
+Use standard library features and data structures when they improve efficiency.
+
+Minimize space usage where possible without sacrificing clarity or performance.
+
+Avoid brute-force approaches unless they are proven optimal for this problem.
+
+If the problem allows multiple correct answers, prefer lex smallest / shortest / simplest correct answer as per standard competitive programming practice.
 
 For the Manim visualization:
-- Detect the main data structure involved (array, linked list, tree, graph, etc.) and use the most appropriate Manim objects and layouts for each.
-- Ensure all elements are clearly visible, well-aligned, and do not overlap. Use spacing, grouping, and layout strategies (e.g., VGroup, HGroup, arrange, shift, etc.) to avoid overlap and improve clarity.
-- Use labels, colors, and arrows to make the visualization easy to understand.
-- For graphs, use a layout that avoids edge and node overlap. For linked lists, arrange nodes horizontally or vertically with clear links. For arrays, use rectangles or squares in a row or grid.
-- Always use a single class named SolutionVisualization for the Manim code.
-- Do not include any explanation or comments, just code.
+
+Detect the main data structure involved (array, linked list, tree, graph, etc.) and use the most appropriate Manim objects and layouts for each.
+
+Ensure all elements are clearly visible, well-aligned, and do not overlap. Use spacing, grouping, and layout strategies (e.g., VGroup, HGroup, arrange, shift, etc.) to avoid overlap and improve clarity.
+
+Use labels, colors, and arrows to make the visualization easy to understand.
+
+For graphs, use a layout that avoids edge and node overlap. For linked lists, arrange nodes horizontally or vertically with clear links. For arrays, use rectangles or squares in a row or grid.
+
+Always use a single class named SolutionVisualization for the Manim code.
+
+Do not include any explanation or comments, just code.
 
 Problem description (HTML):
 {problem_text}
